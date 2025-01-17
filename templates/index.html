@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tegal Laka-Laka</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="#" class="logo">TEGAL-<span>LAKALAKA</span></a>
+                <ul class="menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#pariwisata">Pariwisata</a></li>
+                    <li><a href="#kuliner">Kuliner</a></li>
+                    <li><a href="#pesan">Pesan</a></li>
+                </ul>
+                <!-- Burger Menu Icon -->
+                <div class="burger" onclick="toggleMenu()" aria-label="Toggle Navigation">
+                    <i data-feather="menu"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home">
+        <div class="home-content">
+            <h1>Welcome to TEGAL-<span>LAKALAKA</span></h1>
+            <p>Temukan tempat, Dan Kuliner Tebaik Di TEGAL </p>
+        </div>
+    </section>
+
+        
+        <h2>PARIWISATA</h2>
+        <div class="card-container">
+            <div class="card">
+                <img src="{{ url_for('static', filename='images/Guci.jpg') }}" alt="guci" />
+                <h3>Guci</h3>
+                <p>Guci adalah sebuah kawasan wisata alam yang terletak di Kecamatan Bumijawa, Kabupaten Tegal, Jawa Tengah. Terkenal dengan sumber mata air panas alami dan pemandian air panas.</p>
+            </div>
+            <div class="card">
+                <img src="{{ url_for('static', filename='images/Pantai Alam Indah.jpg') }}" alt="Pantai Alam Indah" />
+                <h3>Pantai Alam Indah</h3>
+                <p>Pantai Alam Indah (PAI) merupakan destinasi wisata pantai yang terletak di Kota Tegal. Dengan pasir hitamnya, pantai ini menawarkan pemandangan laut yang indah, fasilitas yang cukup lengkap, serta beragam aktivitas seperti bersepeda, jalan-jalan, dan menikmati kuliner laut segar.</p>
+            </div>
+            <div class="card">
+                <img src="{{ url_for('static', filename='images/Tugu Poci.jpg') }}" alt="TUGU POCI" />
+                <h3>Tugu Poci</h3>
+                <p>Tugu Poci adalah tugu yang terletak di pusat Kota Slawi, Kabupaten Tegal. Tugu ini dikenal sebagai simbol budaya dan sejarah Tegal, dengan bentuk yang unik dan menjadi salah satu ikon dari daerah tersebut.</p>
+            </div>
+            <div class="card">
+                <img src="{{ url_for('static', filename='images/Museum Semedo.png') }}" alt="MUSEUM SEMEDO" />
+                <h3>Museum Semedo</h3>
+                <p>Museum Semedo terletak di Desa Semedo, Kecamatan Adiwerna, Kabupaten Tegal. Museum ini menyimpan berbagai koleksi sejarah dan budaya lokal, termasuk peninggalan-peninggalan sejarah yang berkaitan dengan perkembangan Tegal dan Jawa Tengah.</p>
+            </div>
+            <div class="card">
+                <img src="{{ url_for('static', filename='images/Curug Pengatin.jpg') }}" alt="CURUG PENGANTIN" />
+                <h3>Curug Pengantin</h3>
+                <p>Curug Pengatin adalah air terjun yang terletak di Desa Tengger, Kecamatan Bojong, Kabupaten Tegal. Air terjun ini memiliki pemandangan yang memukau, dikelilingi oleh pepohonan hijau yang rimbun, cocok untuk para pengunjung yang menyukai wisata alam dan trekking.</p>
+            </div>
+            <div class="card">
+                <img src="{{ url_for('static', filename='images/Curug Cantel.jpg') }}" alt="CURUG Cantel" />
+                <h3>Curug Cantel</h3>
+                <p>Curug Cantel adalah air terjun yang berada di Kecamatan Jatinegara, Kabupaten Tegal. Air terjun ini dikenal dengan keindahan alamnya, dengan aliran air yang jernih dan suasana yang tenang, membuatnya menjadi tempat yang populer untuk berwisata alam dan menikmati ketenangan.</p>
+            </div>
+        </div>
+    </section>
+
+     <!-- Section Kuliner -->
+<section id="kuliner">
+    <h2>KULINER KHAS TEGAL</h2>
+    <div class="table-container">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nama Kuliner</th>
+                    <th>Deskripsi</th>
+                    <th>Harga</th>
+                    <th>Aksi</th> <!-- Kolom untuk tombol aksi -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for kuliner in kuliner_list %}
+                <tr>
+                    <td>{{ kuliner.name }}</td>
+                    <td>{{ kuliner.description }}</td>
+                    <td>Rp{{ kuliner.price }} per porsi</td>
+                    <td>
+                        <!-- Tombol Edit -->
+                        <a href="/edit_kuliner/{{ kuliner.id }}" class="btn btn-warning btn-sm">
+                            <i data-feather="edit"></i> Edit
+                        </a>
+                        <!-- Tombol Delete -->
+                        <a href="/delete_kuliner/{{ kuliner.id }}" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus kuliner ini?')">
+                            <i data-feather="trash-2"></i> Hapus
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <!-- Tombol Add Kuliner -->
+        <a href="/add_kuliner" class="btn btn-primary">
+            <i data-feather="plus-circle"></i> Tambah Kuliner
+        </a>
+    </div>
+</section>
+
+
+    <!-- Section Pesan -->
+    <section id="pesan">
+        <h2>Pesan Sekarang</h2>
+        <form action="/add_pesan" method="post">
+            <div class="form-group">
+                <label for="name">Nama:</label>
+                <input type="text" id="name" name="name" required />
+            </div>
+            <div class="form-group">
+                <label for="contact">Kontak:</label>
+                <input type="text" id="contact" name="contact" required />
+            </div>
+            <div class="form-group">
+                <label for="pesanan">Pesanan:</label>
+                <select id="pesanan" name="pesanan" required>
+                    <option value="" disabled selected>Pilih Pesanan</option>
+                    <optgroup label="Kuliner">
+                        {% for kuliner in kuliner_list %}
+                            <option value="{{ kuliner.name }}">{{ kuliner.name }}</option>
+                        {% endfor %}
+                    </optgroup>
+                </select>
+            </div>
+            <button type="submit">Pesan</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Tegal-LAKALAKA</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
